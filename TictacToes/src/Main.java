@@ -27,7 +27,7 @@ public class Main extends JFrame {
     public static final int GAMEPANEL_SIZE= 600;
     // Symbols (cross/nought) are displayed inside a cell, with padding from border
     public static final int CELL_PADDING = CELL_SIZE / 5;
-    public static final int SYMBOL_SIZE = CELL_SIZE - CELL_PADDING * 2; // width/height
+//    public static final int SYMBOL_SIZE = CELL_SIZE - CELL_PADDING * 2; // width/height
     public static final int SYMBOL_STROKE_WIDTH = 8; // pen's stroke width
     public static final Color COLOR_BG_STATUS = new Color(216, 216, 216);
     public static final Color COLOR_GRID   = Color.BLACK;  // grid lines
@@ -53,10 +53,8 @@ public class Main extends JFrame {
     // UI Components
     private GamePanel gamePanel; // Drawing canvas (JPanel) for the game board
     private JLabel statusBar;  // Status Bar
-    private JLabel buttonBar;
     private  JButton btnLevel;
     private JButton btnRestart;
-    private JLabel BG;  // BackGround
 
     /** Constructor to setup the game and the GUI components */
     public Main() {
@@ -104,17 +102,11 @@ public class Main extends JFrame {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER)); // You can adjust the layout as needed
 
-        buttonBar = new JLabel();
-        // Set properties for buttonBar
-        buttonBar.setFont(FONT_STATUS);
-        buttonBar.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 12));
-        buttonBar.setBackground(COLOR_BG_STATUS);
-
         btnRestart = new JButton();
         // Set properties for btnRestart
         btnRestart.setBackground(new Color(71, 210, 52));
         btnRestart.setFont(new Font("Gill Sans Ultra Bold Condensed", 0, 14));
-        btnRestart.setForeground(new Color(255, 255, 255));
+        btnRestart.setForeground(new Color(255, 255, 255)); //warna text
         btnRestart.setText("RESTART");
         btnRestart.setPreferredSize(new Dimension(90, 30));
         btnRestart.addActionListener(new ActionListener() {
@@ -139,7 +131,7 @@ public class Main extends JFrame {
         btnLevel.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 chooseLevel();
-                gamePanel.revalidate();
+                gamePanel.revalidate(); //memperbarui ulang tata letak (layout)
                 newGame(); // Atur ulang permainan dengan papan yang baru
                 gamePanel.repaint(); // Perbarui panel permainan dengan papan yang baru
             }
@@ -333,7 +325,7 @@ public class Main extends JFrame {
                         g2d.drawLine(x2, y1, x1, y2);
                     } else if (board[row][col] == Seed.NOUGHT) {  // draw a circle
                         g2d.setColor(COLOR_NOUGHT);
-                        g2d.drawOval(x1, y1, SYMBOL_SIZE, SYMBOL_SIZE);
+                        g2d.drawOval(x1, y1, CELL_SIZE - CELL_PADDING * 2, CELL_SIZE - CELL_PADDING * 2);
                     }
                 }
             }
