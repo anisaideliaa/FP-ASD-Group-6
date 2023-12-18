@@ -91,6 +91,20 @@ public class Main extends JFrame {
             }
         });
 
+        JMenuBar menuBar = new JMenuBar();
+        setJMenuBar(menuBar);
+        //newGames
+        JMenu newGameItem = new JMenu("Get to know about Group 6");
+        menuBar.add(newGameItem);
+
+
+        // JMenuItem inside JMenu 'Developed By Group 6'
+        JMenuItem menuItem = new JMenuItem("Open for details"); // Ganti "Action" dengan teks yang sesuai
+        menuItem.addActionListener(e -> {
+            developName(); // Panggil metode yang diinginkan saat item menu diklik
+        });
+        newGameItem.add(menuItem);
+
         // Setup the status bar (JLabel) to display status message
         statusBar = new JLabel("       ");
         statusBar.setFont(FONT_STATUS);
@@ -167,6 +181,35 @@ public class Main extends JFrame {
 
         newGame();
 
+    }
+
+    private void developName() {
+        String develop = " Group 6:\n" +
+                "1. 5026211081 - Muhammad Hudzaifah Abdurrasyid\n" +
+                "2. 5026221034 - Dwi Indah Retnanik\n" +
+                "3. 5026221200 - Anisa Fatin Idelia";
+
+        // Membuat panel untuk menampung teks dan gambar
+        JPanel panel = new JPanel();
+        panel.setLayout(new BorderLayout());
+
+        // Teks
+        JTextArea textArea = new JTextArea(develop);
+        textArea.setEditable(false);
+        textArea.setBackground(new Color(238, 238, 238));
+        panel.add(textArea, BorderLayout.CENTER);
+
+        // Gambar
+        ImageIcon imageIcon = new ImageIcon(getClass().getResource("group6.jpg"));// Ganti dengan path gambar Anda
+        int width = 150; // Ubah sesuai dengan lebar yang diinginkan
+        int height = 150; // Ubah sesuai dengan tinggi yang diinginkan
+        Image image = imageIcon.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
+        ImageIcon scaledIcon = new ImageIcon(image);
+        JLabel imageLabel = new JLabel(scaledIcon);
+        panel.add(imageLabel, BorderLayout.PAGE_START);
+
+        // Tampilkan kotak dialog dengan teks dan gambar
+        JOptionPane.showMessageDialog(this, panel, "Sudoku", JOptionPane.INFORMATION_MESSAGE);
     }
 
     /** Initialize the Game (run once) */
