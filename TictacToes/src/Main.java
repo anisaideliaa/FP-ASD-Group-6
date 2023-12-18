@@ -209,7 +209,7 @@ public class Main extends JFrame {
         panel.add(imageLabel, BorderLayout.PAGE_START);
 
         // Tampilkan kotak dialog dengan teks dan gambar
-        JOptionPane.showMessageDialog(this, panel, "Sudoku", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, panel, "Tic Tac Toe", JOptionPane.INFORMATION_MESSAGE);
     }
 
     /** Initialize the Game (run once) */
@@ -222,6 +222,9 @@ public class Main extends JFrame {
         int choice = JOptionPane.showOptionDialog(null, "Choose board size:", "Board Size",
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]
         );
+        if (choice == JOptionPane.CLOSED_OPTION) {
+            return; // Keluar dari metode
+        }
         if (choice == 0) {
             ROWS = 3;
             COLS = 3;
