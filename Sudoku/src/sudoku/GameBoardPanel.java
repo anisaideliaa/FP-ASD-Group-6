@@ -47,6 +47,7 @@ public class GameBoardPanel extends JPanel {
         super.setLayout(new GridLayout(SudokuConstants.GRID_SIZE, SudokuConstants.GRID_SIZE));  // JPanel
 
         // Allocate the 2D array of Cell, and added into JPanel.
+        // gambar grid 1x1
         for (int row = 0; row < SudokuConstants.GRID_SIZE; ++row) {
             for (int col = 0; col < SudokuConstants.GRID_SIZE; ++col) {
                 cells[row][col] = new Cell(row, col);
@@ -54,6 +55,7 @@ public class GameBoardPanel extends JPanel {
                 cells[row][col].setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
                 super.add(cells[row][col]);   // JPanel
+                //grid 3x3
                 if ((col + 1) % 3 == 0 && col < SudokuConstants.GRID_SIZE - 1) {
                     Border border = new MatteBorder(0, 0, 0, 2, Color.BLACK);
                     cells[row][col].setBorder(new CompoundBorder(cells[row][col].getBorder(), border));
@@ -66,6 +68,7 @@ public class GameBoardPanel extends JPanel {
             }
         }
 
+        //pada cell yang harus diisi
         for (int row = 0; row < SudokuConstants.GRID_SIZE; ++row) {
             for (int col = 0; col < SudokuConstants.GRID_SIZE; ++col) {
                 if (cells[row][col].isEditable()) {
@@ -74,7 +77,7 @@ public class GameBoardPanel extends JPanel {
             }
         }
 
-        super.setBorder(new LineBorder(Color.BLACK, 3));
+        super.setBorder(new LineBorder(Color.BLACK, 3)); //garis luar
         super.setPreferredSize(new Dimension(BOARD_WIDTH, BOARD_HEIGHT));
     }
 
@@ -103,6 +106,37 @@ public class GameBoardPanel extends JPanel {
                 "4. Beberapa sel mungkin sudah diisi dan tidak dapat diubah.";
         JOptionPane.showMessageDialog(this, helpMessage, "Aturan Sudoku", JOptionPane.INFORMATION_MESSAGE);
     }
+    public void developName() {
+        String develop = " Group 6:\n" +
+                "1. 5026211081 - Muhammad Hudzaifah Abdurrasyid\n" +
+                "2. 5026221034 - Dwi Indah Retnanik\n" +
+                "3. 5026221200 - Anisa Fatin Idelia";
+
+        // Membuat panel untuk menampung teks dan gambar
+        JPanel panel = new JPanel();
+        panel.setLayout(new BorderLayout());
+
+        // Teks
+        JTextArea textArea = new JTextArea(develop);
+        textArea.setEditable(false);
+        textArea.setBackground(new Color(238, 238, 238));
+        panel.add(textArea, BorderLayout.CENTER);
+
+        // Gambar
+        ImageIcon imageIcon = new ImageIcon(getClass().getResource("group6.jpg"));// Ganti dengan path gambar Anda
+        int width = 150; // Ubah sesuai dengan lebar yang diinginkan
+        int height = 150; // Ubah sesuai dengan tinggi yang diinginkan
+        Image image = imageIcon.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
+        ImageIcon scaledIcon = new ImageIcon(image);
+        JLabel imageLabel = new JLabel(scaledIcon);
+        panel.add(imageLabel, BorderLayout.PAGE_START);
+
+        // Tampilkan kotak dialog dengan teks dan gambar
+        JOptionPane.showMessageDialog(this, panel, "Sudoku", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+
+    //mengecek apabila semua sudah terisi dan jawabannya benar
     public boolean isSolved() {
         for (int row = 0; row < SudokuConstants.GRID_SIZE; ++row) {
             for (int col = 0; col < SudokuConstants.GRID_SIZE; ++col) {
@@ -154,6 +188,7 @@ public class GameBoardPanel extends JPanel {
             // Check if the puzzle is solved
             if (isSolved()) {
                 JOptionPane.showMessageDialog(null, "Congratulations! Puzzle Solved!");
+                newGame();
             }
         }
     }
