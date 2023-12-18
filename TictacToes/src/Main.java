@@ -126,7 +126,7 @@ public class Main extends JFrame {
         btnLevel.setBackground(new Color(255, 255, 255));
         btnLevel.setFont(new Font("Gill Sans Ultra Bold Condensed", 0, 14));
         btnLevel.setForeground(new Color(71, 210, 52));
-        btnLevel.setText("SELECT LEVEL");
+        btnLevel.setText("SELECT GRID");
         btnLevel.setPreferredSize(new Dimension(120, 30));
         btnLevel.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
