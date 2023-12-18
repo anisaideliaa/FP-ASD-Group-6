@@ -21,7 +21,7 @@ public class SudokuMain extends JFrame {
     // private variables
     GameBoardPanel board = new GameBoardPanel();
     JButton btnNewGame = new JButton("New Game");
-    JButton btnHelp = new JButton("Help");
+    JButton btnHelp = new JButton("Rules");
 
     // Constructor
     public SudokuMain() {
@@ -33,7 +33,6 @@ public class SudokuMain extends JFrame {
         GridBagConstraints gbcBoard = new GridBagConstraints();
         gbcBoard.gridx = 0;
         gbcBoard.gridy = 0;
-        gbcBoard.gridwidth = 3;
         gbcBoard.insets = new Insets(10, 10, 10, 10); // Margin
         cp.add(board, gbcBoard);
 
@@ -43,7 +42,6 @@ public class SudokuMain extends JFrame {
         GridBagConstraints gbcBPanel = new GridBagConstraints();
         gbcBPanel.gridx = 0;
         gbcBPanel.gridy = 1;
-        gbcBPanel.gridwidth = 3;
         gbcBPanel.insets = new Insets(10, 10, 10, 10);
         cp.add(bPanel, gbcBPanel);
 
@@ -85,12 +83,22 @@ public class SudokuMain extends JFrame {
         JMenuBar menuBar = new JMenuBar();
         setJMenuBar(menuBar);
         //newGames
-        JMenu newGameItem = new JMenu("Developed By Group 6");
+        JMenu newGameItem = new JMenu("Get to know about Group 6");
         menuBar.add(newGameItem);
+
+
+        // JMenuItem inside JMenu 'Developed By Group 6'
+        JMenuItem menuItem = new JMenuItem("Open for details"); // Ganti "Action" dengan teks yang sesuai
+        menuItem.addActionListener(e -> {
+            board.developName(); // Panggil metode yang diinginkan saat item menu diklik
+        });
+        newGameItem.add(menuItem); //
+
+
 
         pack();     // Pack the UI components, instead of using setSize()
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  // to handle window-closing
-        setTitle("Sudoku");
+        setTitle("Sudoku - Developed By Group 6");
         setVisible(true);
     }
 
