@@ -22,43 +22,37 @@ public class SudokuMain extends JFrame {
     GameBoardPanel board = new GameBoardPanel();
     JButton btnNewGame = new JButton("New Game");
     JButton btnHelp = new JButton("Rules");
+    private JLabel statusBar;
 
     // Constructor
     public SudokuMain() {
         Container cp = getContentPane();
-        cp.setLayout(new GridBagLayout()); // Menggunakan GridBagLayout untuk responsivitas
+        cp.setLayout(new BorderLayout());
 
+        statusBar = new JLabel("       ");
+        statusBar.setFont(new Font("Poppins", Font.BOLD, 14));
+        statusBar.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 12));
+        statusBar.setOpaque(true);
+        statusBar.setBackground(new Color(216, 216, 216));
+        cp.add(statusBar, BorderLayout.PAGE_START);
 
-        // Panel 1: Board Sudoku
+        JPanel centerPanel = new JPanel(new GridBagLayout());
+        cp.add(centerPanel, BorderLayout.CENTER);
         GridBagConstraints gbcBoard = new GridBagConstraints();
         gbcBoard.gridx = 0;
         gbcBoard.gridy = 0;
         gbcBoard.insets = new Insets(10, 10, 10, 10); // Margin
-        cp.add(board, gbcBoard);
+        centerPanel.add(board, gbcBoard);
 
-        // Panel 2: Button2
         JPanel bPanel = new JPanel();
-        bPanel.setLayout(new GridBagLayout());
+        bPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
         GridBagConstraints gbcBPanel = new GridBagConstraints();
         gbcBPanel.gridx = 0;
-        gbcBPanel.gridy = 1;
+        gbcBPanel.gridy = 1; // Placing bPanel below the board
         gbcBPanel.insets = new Insets(10, 10, 10, 10);
-        cp.add(bPanel, gbcBPanel);
-
-        // GridBagConstraints untuk tombol New Game
-        GridBagConstraints gbcBtnNewGame = new GridBagConstraints();
-        gbcBtnNewGame.gridx = 0;
-        gbcBtnNewGame.gridy = 0;
-        gbcBtnNewGame.insets = new Insets(0, 0, 0, 5);
-        bPanel.add(btnNewGame, gbcBtnNewGame);
-
-
-        // GridBagConstraints untuk tombol Help
-        GridBagConstraints gbcHelp = new GridBagConstraints();
-        gbcHelp.gridx = 1;
-        gbcHelp.gridy = 0;
-        gbcHelp.insets = new Insets(0, 0, 0, 5);
-        bPanel.add(btnHelp, gbcHelp);
+        centerPanel.add(bPanel, gbcBPanel);
+        bPanel.add(btnNewGame);
+        bPanel.add(btnHelp);
 
         btnNewGame.setFont(new Font("Cooper Black", Font.PLAIN, 16));
         btnNewGame.setForeground(Color.WHITE);
@@ -82,18 +76,14 @@ public class SudokuMain extends JFrame {
         // Create menu bar
         JMenuBar menuBar = new JMenuBar();
         setJMenuBar(menuBar);
-        //newGames
         JMenu newGameItem = new JMenu("Get to know about Group 6");
         menuBar.add(newGameItem);
 
-
-        // JMenuItem inside JMenu 'Developed By Group 6'
         JMenuItem menuItem = new JMenuItem("Open for details"); // Ganti "Action" dengan teks yang sesuai
         menuItem.addActionListener(e -> {
             board.developName(); // Panggil metode yang diinginkan saat item menu diklik
         });
         newGameItem.add(menuItem); //
-
 
 
         pack();     // Pack the UI components, instead of using setSize()
@@ -110,4 +100,9 @@ public class SudokuMain extends JFrame {
             new SudokuMain();
         });
     }
+
+    public void setStatusText(String text) {
+        statusBar.setText(text);
+    }
+
 }
