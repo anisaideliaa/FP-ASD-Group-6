@@ -165,23 +165,23 @@ public class GameBoardPanel extends JPanel {
                 if (numberIn < 1 || numberIn > 9) {
                     throw new NumberFormatException(); // Force the catch block to execute for invalid input
                 }
+
+                System.out.println("You entered " + numberIn);
+
+                if (numberIn == sourceCell.number) {
+                    sourceCell.status = CellStatus.CORRECT_GUESS;
+                    setStatusBarText("Keep Going!");
+                } else {
+                    sourceCell.status = CellStatus.WRONG_GUESS;
+                    setStatusBarText("Incorrect guess. Please try again.");
+                }
             } catch (NumberFormatException ex) {
                 sourceCell.status = CellStatus.WRONG_GUESS;
-                setStatusBarText("Invalid input. Please enter a number.");
-                System.out.println("Invalid input. Please enter a number.");
+                setStatusBarText("Invalid input. Please enter a number 1-9.");
+                System.out.println("Invalid input. Please enter a number 1-9.");
                 // Background color doesn't change here to allow the subsequent code to execute
-                return;
             }
 
-            System.out.println("You entered " + numberIn);
-
-            if (numberIn == sourceCell.number) {
-                sourceCell.status = CellStatus.CORRECT_GUESS;
-                setStatusBarText("Keep Going!");
-            } else {
-                sourceCell.status = CellStatus.WRONG_GUESS;
-                setStatusBarText("Incorrect guess. Please try again.");
-            }
 
             sourceCell.paint();
 
@@ -191,7 +191,6 @@ public class GameBoardPanel extends JPanel {
             }
         }
     }
-
 
     public void setStatusBarText(String text) {
         ((SudokuMain) SwingUtilities.getWindowAncestor(this)).setStatusText(text);
