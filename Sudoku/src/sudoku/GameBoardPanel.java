@@ -152,44 +152,49 @@ public class GameBoardPanel extends JPanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            // Get a reference to the JTextField that triggers this action event
             Cell sourceCell = (Cell) e.getSource();
 
-            // Check if the cell is editable
             if (!sourceCell.isEditable()) {
-                // If the cell is not editable, do nothing
                 return;
             }
 
-            // Attempt to parse the input as an integer
             int numberIn;
             try {
                 numberIn = Integer.parseInt(sourceCell.getText());
+
+                if (numberIn < 1 || numberIn > 9) {
+                    throw new NumberFormatException(); // Force the catch block to execute for invalid input
+                }
             } catch (NumberFormatException ex) {
-                // Handle the case when the input is not a number
-                // For example, you may show an error message
+                sourceCell.status = CellStatus.WRONG_GUESS;
+                setStatusBarText("Invalid input. Please enter a number.");
                 System.out.println("Invalid input. Please enter a number.");
+                // Background color doesn't change here to allow the subsequent code to execute
                 return;
             }
 
-            // For debugging purposes
             System.out.println("You entered " + numberIn);
 
-            // Check if the entered number is correct
             if (numberIn == sourceCell.number) {
                 sourceCell.status = CellStatus.CORRECT_GUESS;
+                setStatusBarText("Keep Going!");
             } else {
                 sourceCell.status = CellStatus.WRONG_GUESS;
+                setStatusBarText("Incorrect guess. Please try again.");
             }
 
-            // Re-paint the cell based on its status
             sourceCell.paint();
 
-            // Check if the puzzle is solved
             if (isSolved()) {
                 JOptionPane.showMessageDialog(null, "Congratulations! Puzzle Solved!");
                 newGame();
             }
         }
     }
+
+
+    public void setStatusBarText(String text) {
+        ((SudokuMain) SwingUtilities.getWindowAncestor(this)).setStatusText(text);
+    }
+
 }
